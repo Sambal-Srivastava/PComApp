@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">PComApp</string>
+    <string name="home">Home</string>
+    <string name="settings">Settings</string>
+    <string name="lang_heading"><u>Language:</u></string>
+    <string name="rb_en">English</string>
+    <string name="rb_hin">Hindi</string>
+    <string name="nightMode_heading"><u>Night Mode</u></string>
+    <string name="rb_on">ON</string>
+    <string name="rb_off">OFF</string>
+    <string name="load_more"><u>Load More</u></string>
+</resources>

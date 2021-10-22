@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="@dimen/_10sdp"
+    android:layout_marginVertical="@dimen/_10sdp"
+    tools:context=".views.SettingFragment">
+
+<!--    =====language===========-->
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/lang_heading"
+      android:textStyle="bold"
+      android:textSize="@dimen/_26ssp"/>
+    <RadioGroup
+        android:id="@+id/rgLang"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/rbEng"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/rb_en"
+            android:textSize="24sp" />
+
+        <RadioButton
+            android:id="@+id/rbHindi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/rb_hin"
+            android:textSize="24sp" />
+    </RadioGroup>
+<!-- -==========================night mode===============-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/nightMode_heading"
+        android:textStyle="bold"
+        android:textSize="@dimen/_26ssp"/>
+    <RadioGroup
+        android:id="@+id/rgNightMode"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/rbOn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/rb_on"
+            android:textSize="24sp" />
+
+        <RadioButton
+            android:id="@+id/rbOff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/rb_off"
+            android:textSize="24sp" />
+    </RadioGroup>
+
+
+</LinearLayout>
