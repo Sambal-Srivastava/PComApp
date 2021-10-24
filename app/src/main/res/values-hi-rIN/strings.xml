@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">पीसीएमएप</string>
+    <string name="home">घर</string>
+    <string name="settings">समायोजन</string>
+    <string name="lang_heading"><u> भाषा:</u>  </string>
+    <string name="rb_en">अंग्रेज़ी</string>
+    <string name="rb_hin">हिंदी</string>
+    <string name="nightMode_heading"><u> रात्री स्वरुप</u>  </string>
+    <string name="rb_on">चयन करें</string>
+    <string name="rb_off">बंद करें</string>
+    <string name="load_more"><u> और लोड करें</u>  </string>
+    <string name="title"><b> शीर्षक:</b>  </string>
+</resources>

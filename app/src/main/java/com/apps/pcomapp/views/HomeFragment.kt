@@ -1,7 +1,6 @@
 package com.apps.pcomapp.views
 
 import android.content.Context
-import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -9,17 +8,17 @@ import androidx.annotation.RequiresApi
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apps.pcomapp.R
 import com.apps.pcomapp.adapter.FilmsAdapter
+import com.apps.pcomapp.listener.FilmClickListener
 import com.apps.pcomapp.model.FilmsModel
+import com.apps.pcomapp.util.Helper
+import com.apps.pcomapp.util.MyPreferences
 import com.apps.pcomapp.viewmodel.CommonViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlin.concurrent.schedule
-import java.util.*
 
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -46,9 +45,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mContext = requireActivity()
+        mContext = requireContext()
         //===============================
         commonViewModel = ViewModelProvider(this).get(CommonViewModel::class.java)
+        requireActivity().btNav.visibility = View.VISIBLE
+
         manager = LinearLayoutManager(
             mContext, LinearLayoutManager.VERTICAL, false
         )
@@ -56,10 +57,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         commonViewModel!!.films?.observe(viewLifecycleOwner) { result ->
             resultList = result.data as MutableList<FilmsModel>
-           // setMyAdapter(resultList)
-            if (!resultList.isEmpty()) {
-                //tvLoadMore.visibility = View.VISIBLE
-            }
             pbLoading.visibility = View.VISIBLE
             startPagination(resultList)
         }
@@ -71,29 +68,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             // on scroll change we are checking when users scroll as bottom.
             if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
                 // in this method we are incrementing page number,
-                // making progress bar visible and calling get data method.
-//                GlobalScope.launch {
-//                    delay(2000)
-//                }
                 pbLoading.visibility = View.VISIBLE
                 startPagination(resultList)
-//                getDataFromAPI(page, limit)
             }
         })
-
-    /*    tvLoadMore.setOnClickListener(View.OnClickListener {
-            startPagination(resultList)
-        })*/
     }
 
     private fun startPagination(data: List<FilmsModel>?) {
         for (a in startPoint..endPoint) {
             if (a == endPoint) {
-                startPoint =  endPoint
-                if (endPoint+10 > data!!.size){
+                startPoint = endPoint
+                if (endPoint + 10 > data!!.size) {
                     endPoint = endPoint + (data.size - endPoint)
                     tvLoadMore.visibility = View.GONE
-                }else{
+                } else {
                     endPoint = endPoint + 10
                 }
                 break
@@ -101,43 +89,30 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             filmsList.add(data!!.get(a))
         }
         setMyAdapter(filmsList)
-         pbLoading.visibility = View.GONE
-    }
-
-    private fun enablePagination(it: List<FilmsModel>?) {
-
-        setMyAdapter(it)
-
-        // RecyclerView Pagination********************************
-/*
-        rvFilms.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
-                    isScrolling = true
-                }
-            }
-
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                currentItems = manager!!.getChildCount()
-                totalItems = manager!!.getItemCount()
-                scrollOutItems = manager!!.findFirstVisibleItemPosition()
-                if (isScrolling && currentItems + scrollOutItems === totalItems) {
-                    isScrolling = false
-                    if (upperLimit != totalItems) {
-                        lowerLimit = lowerLimit + 10
-                        upperLimit = upperLimit + 10
-                        setMyAdapter(it)
-                    }
-                }
-            }
-        })
-*/
+        pbLoading.visibility = View.GONE
     }
 
     private fun setMyAdapter(it: List<FilmsModel>?) {
         filmsAdapter = FilmsAdapter(it!!, mContext, lowerLimit, upperLimit)
         rvFilms.setAdapter(filmsAdapter)
+        filmsAdapter.setOnItemClickListener(object : FilmClickListener {
+            override fun onItemClick(position: Int, v: View?, adapList: List<FilmsModel>?) {
+                val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(
+                    adapList?.get(position)!!.title,
+                    adapList.get(position).original_title,
+                    adapList.get(position).image,
+                    adapList.get(position).description,
+                    adapList.get(position).director,
+                    adapList.get(position).producer,
+                    adapList.get(position).release_date,
+                    adapList.get(position).running_time,
+                    adapList.get(position).rt_score,
+                )
+                findNavController().navigate(action)
+                activity!!.btNav.visibility = View.GONE
+            }
+        })
+
+
     }
 }

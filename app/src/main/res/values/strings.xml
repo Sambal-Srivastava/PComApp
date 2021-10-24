@@ -9,4 +9,5 @@
     <string name="rb_on">ON</string>
     <string name="rb_off">OFF</string>
     <string name="load_more"><u>Load More</u></string>
+    <string name="title"><b>Title: </b></string>
 </resources>

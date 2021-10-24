@@ -20,7 +20,7 @@ class FilmsAdapter(
     RecyclerView.Adapter<FilmsAdapter.ViewHolder>() {
 
 
-    companion object{
+    companion object {
         var clickListener: FilmClickListener? = null
     }
 
@@ -42,7 +42,10 @@ class FilmsAdapter(
             .with(mContext)
             .load(filmsList.get(position).image)
             .placeholder(R.drawable.placeholder)
-            .into(holder.ivImage);
+            .into(holder.ivImage)
+        holder.llFilms.setOnClickListener {
+            clickListener?.onItemClick(position, holder.itemView, filmsList)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -53,13 +56,13 @@ class FilmsAdapter(
     fun setOnItemClickListener(clickListener: FilmClickListener) {
         FilmsAdapter.clickListener = clickListener
     }
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTitle = itemView.tvTitle
         val tvDescription = itemView.tvDescription
         val tvRtScore = itemView.tvRtScore
         val ivImage = itemView.ivImage
-
+        val llFilms = itemView.ll_Films
 //        itemView.onclick
-
     }
 }

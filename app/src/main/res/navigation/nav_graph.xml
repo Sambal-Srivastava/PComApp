@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/homeFragment"
+    tools:ignore="UnusedNavigation">
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.apps.pcomapp.views.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
@@ -22,5 +23,33 @@
         android:id="@+id/detailsFragment"
         android:name="com.apps.pcomapp.views.DetailsFragment"
         android:label="fragment_movie_details"
-        tools:layout="@layout/fragment_movie_details" />
+        tools:layout="@layout/fragment_movie_details">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="originalTitle"
+            app:argType="string" />
+        <argument
+            android:name="image"
+            app:argType="string" />
+        <argument
+            android:name="description"
+            app:argType="string" />
+        <argument
+            android:name="director"
+            app:argType="string" />
+        <argument
+            android:name="producer"
+            app:argType="string" />
+        <argument
+            android:name="releaseDate"
+            app:argType="string" />
+        <argument
+            android:name="runningTime"
+            app:argType="string" />
+        <argument
+            android:name="rtScore"
+            app:argType="string" />
+    </fragment>
 </navigation>

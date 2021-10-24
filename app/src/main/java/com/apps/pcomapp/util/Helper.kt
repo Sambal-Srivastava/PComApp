@@ -1,5 +1,6 @@
 package com.apps.pcomapp.util
 
+import android.app.Activity
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -7,6 +8,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import java.io.IOException
+import java.util.*
 
 public class Helper {
     companion object{
@@ -67,6 +69,17 @@ public class Helper {
                 @Suppress("DEPRECATION")
                 return networkInfo.isConnected
             }
+        }
+
+        fun setAppLocale(context: Context, activity: Activity, language: String) {
+            val locale = Locale(language)
+            Locale.setDefault(locale)
+            val config = context.resources.configuration
+            config.setLocale(locale)
+            context.createConfigurationContext(config)
+            context.resources.updateConfiguration(config, context.resources.displayMetrics)
+            activity?.finish();
+            activity?.startActivity(activity.getIntent());
         }
 
     }
