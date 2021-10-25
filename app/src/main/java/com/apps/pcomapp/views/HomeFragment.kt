@@ -58,7 +58,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         commonViewModel!!.films?.observe(viewLifecycleOwner) { result ->
             resultList = result.data as MutableList<FilmsModel>
             pbLoading.visibility = View.VISIBLE
-            startPagination(resultList)
+            if (!resultList.isEmpty()) {
+                startPagination(resultList)
+            }
         }
 
         // adding on scroll change listener method for our nested scroll view.

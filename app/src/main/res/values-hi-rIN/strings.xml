@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">पीसीएमएप</string>
-    <string name="home">घर</string>
+    <string name="home">होम</string>
     <string name="settings">समायोजन</string>
     <string name="lang_heading"><u> भाषा:</u>  </string>
     <string name="rb_en">अंग्रेज़ी</string>

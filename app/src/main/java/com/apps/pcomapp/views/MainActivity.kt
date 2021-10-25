@@ -25,13 +25,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (MyPreferences.getValue(this, "language").equals("en", true)) {
+        if (MyPreferences.getValue(this, "language").equals("hi", true)) {
             setAppLocale1(
-                this, this, "en"
+                this, this, "hi"
             )
         } else {
             setAppLocale1(
-                this, this, "hi"
+                this, this, "en"
             )
         }
         setContentView(R.layout.activity_main)
